@@ -3,6 +3,11 @@
 # dependencies
 node_modules/
 
+
+config/firebase.ts
+src/constants/index.ts
+
+.vscode
 # Expo
 .expo/
 dist/
