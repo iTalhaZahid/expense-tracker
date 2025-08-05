@@ -61,7 +61,7 @@ const SearchModal = () => {
                         </View>
                     </View>
                     {/* Input */}
-                    <View style={{ gap: moderateVerticalScale(8) }}>
+                    <View style={{ gap: moderateVerticalScale(8),marginBottom:moderateVerticalScale(8) }}>
                         <Text style={styles.inputLabel}>Wallet Name</Text>
                         <TextInput style={styles.inputContainer} placeholder='e.g., Salary' placeholderTextColor={Colors.placeHolder}
                             value={search}

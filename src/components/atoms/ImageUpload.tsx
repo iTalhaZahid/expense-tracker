@@ -1,4 +1,4 @@
-import { getWalletImage } from '@/src/constants/imagePath';
+import { getWalletImage } from '@/services/imgServices';
 import { ImageUploadProps } from '@/types';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';

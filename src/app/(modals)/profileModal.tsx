@@ -21,6 +21,10 @@ const ProfileModal = () => {
     const { user, updateUserData } = useAuth();
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const [userData, setUserData] = useState<UserDataType>({
+        name: "",
+        image: null,
+    });
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
@@ -35,10 +39,6 @@ const ProfileModal = () => {
         }
     }
 
-    const [userData, setUserData] = useState<UserDataType>({
-        name: "",
-        image: null,
-    });
     useEffect(() => {
         setUserData({
             name: user?.name || "",
@@ -52,7 +52,7 @@ const ProfileModal = () => {
             Alert.alert("User", "Please fill all the fields");
             return;
         }
-        //to-do
+ 
         setLoading(true);
         const res = await updateUser(user?.uid as string, userData)
         if (res.success) {
@@ -84,7 +84,7 @@ const ProfileModal = () => {
                                     <BackButton />
                                 </View>
                                 <View style={styles.headerCenter}>
-                                    <Text style={styles.title}>Profile Modal</Text>
+                                    <Text style={styles.title}>Edit Profile</Text>
                                 </View>
 
                             </View>

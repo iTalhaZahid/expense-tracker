@@ -5,7 +5,7 @@ import ImageUpload from '@/src/components/atoms/ImageUpload'
 import PrimaryButton from '@/src/components/atoms/primarybtn'
 import SecondaryButton from '@/src/components/atoms/secondarybtn'
 import Colors from '@/src/constants/colors'
-import { WalletType } from '@/types'
+import { UserDataType, WalletType } from '@/types'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import * as Icons from 'phosphor-react-native'
 import React, { useEffect, useState } from 'react'
@@ -13,15 +13,18 @@ import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Sty
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, moderateVerticalScale, verticalScale } from 'react-native-size-matters'
+import * as ImagePicker from 'expo-image-picker';
+
 
 const WalletModal = () => {
     const { user } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+  
     const [wallet, setWallet] = useState<WalletType>({
         name: "",
         image: null,
     });
-    const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const onDelete = async () => {
         if (!oldWallet?.id) return;
@@ -41,6 +44,21 @@ const WalletModal = () => {
             Alert.alert('Wallet', res.msg);
         }
     }
+
+       const oldWallet: { name: string; image: string; id: string } =
+        useLocalSearchParams();
+
+
+    useEffect(() => {
+        if (oldWallet?.id) {
+            setWallet({
+                name: oldWallet?.name,
+                image: oldWallet?.image
+
+            })
+        }
+    }, [oldWallet?.id])
+
 
     const showDeleteAlert = () => {
         Alert.alert(
@@ -62,17 +80,8 @@ const WalletModal = () => {
     };
 
 
-    const oldWallet: { name: string; image: string; id: string } =
-        useLocalSearchParams();
-
-    useEffect(() => {
-        if (oldWallet?.id) {
-            setWallet({
-                name: oldWallet?.name,
-                image: oldWallet?.image
-            })
-        }
-    }, [oldWallet?.id])
+ 
+    
 
     const onSubmit = async () => {
         let { name, image } = wallet;
@@ -80,14 +89,13 @@ const WalletModal = () => {
             Alert.alert("Wallet", "Please fill all the fields")
             return;
         };
-
         const data: WalletType = {
             name,
             image,
             uid: user?.uid
         };
         if (oldWallet?.id) data.id = oldWallet?.id
-
+        // if (oldWallet?.image== null )
         setLoading(true);
         const res = await createOrUpdateWallet(data)
         setLoading(false);

@@ -275,45 +275,47 @@ const TransactionModal = () => {
 
                             <View style={{ gap: moderateVerticalScale(8) }}>
                                 <Text style={styles.inputLabel}>Date</Text>
+
+
+                                {
+                                    showDatePicker && (
+                                        <View >
+                                            <DateTimePicker
+                                                maximumDate={new Date()} // For no future dates
+                                                themeVariant='dark'
+                                                value={transaction.date as Date}
+                                                textColor='white'
+                                                mode='date'
+                                                display='spinner'
+                                                onChange={onDateChange}
+                                            />
+
+                                            {
+                                                Platform.OS == 'ios' && (
+                                                    <TouchableOpacity
+                                                        style={styles.datePickerButton}
+                                                        onPress={() => setshowDatePicker(false)}>
+                                                        <Text style={{ fontSize: moderateScale(15), fontWeight: '500', color: 'white', textAlign: 'center' }}>Ok</Text>
+
+                                                    </TouchableOpacity>
+                                                )
+                                            }
+
+                                        </View>
+                                    )
+
+                                }
+
+                                {
+                                    !showDatePicker && (
+                                        <Pressable style={styles.datePicker} onPress={() => { setshowDatePicker(true) }}>
+                                            <View style={{ borderWidth: 1, borderColor: Colors.placeHolder, borderRadius: moderateScale(12), paddingVertical: moderateVerticalScale(18) }}>
+                                                <Text style={{ fontSize: moderateScale(16), color: 'white', textAlign: 'center', fontWeight: '400' }}>{(transaction.date).toLocaleString()}</Text>
+                                            </View>
+                                        </Pressable>
+                                    )
+                                }
                             </View>
-
-                            {
-                                showDatePicker && (
-                                    <View >
-                                        <DateTimePicker
-                                            maximumDate={new Date()} // For no future dates
-                                            themeVariant='dark'
-                                            value={transaction.date as Date}
-                                            textColor='white'
-                                            mode='date'
-                                            display='spinner'
-                                            onChange={onDateChange}
-                                        />
-
-                                        {
-                                            Platform.OS == 'ios' && (
-                                                <TouchableOpacity
-                                                    style={styles.datePickerButton}
-                                                    onPress={() => setshowDatePicker(false)}>
-                                                    <Text style={{ fontSize: moderateScale(15), fontWeight: '500', color: 'black', textAlign: 'center' }}>Ok</Text>
-
-                                                </TouchableOpacity>
-                                            )
-                                        }
-
-                                    </View>
-                                )
-
-                            }
-
-                            {
-                                !showDatePicker && (
-                                    <Pressable style={styles.datePicker} onPress={() => { setshowDatePicker(true) }}>
-                                        <Text style={{ fontSize: moderateScale(16), color: 'black', textAlign: 'center', fontWeight: '400' }}>{(transaction.date).toLocaleString()}</Text>
-                                    </Pressable>
-                                )
-                            }
-
 
                             {/* Amount */}
 
@@ -321,19 +323,19 @@ const TransactionModal = () => {
 
                             <View style={{ gap: moderateVerticalScale(8) }}>
                                 <Text style={styles.inputLabel}>Amount</Text>
+
+
+
+                                <TextInput
+                                    style={[styles.dropdownContainer, { color: 'white' }]}
+                                    placeholder="Enter Amount"
+                                    placeholderTextColor="#ccc"
+                                    keyboardType='number-pad'
+                                    value={transaction?.amount.toString()}
+                                    onChangeText={(value) => setTransaction({ ...transaction, amount: Number(value) })}
+                                />
+
                             </View>
-
-
-                            <TextInput
-                                style={[styles.dropdownContainer, { color: 'white' }]}
-                                placeholder="Enter Amount"
-                                placeholderTextColor="#ccc"
-                                keyboardType='number-pad'
-                                value={transaction?.amount.toString()}
-                                onChangeText={(value) => setTransaction({ ...transaction, amount: Number(value) })}
-                            />
-
-
 
                             {/* Description */}
 
@@ -343,18 +345,18 @@ const TransactionModal = () => {
                                 <Text style={styles.inputLabel}>Description
                                     <Text style={{ color: Colors.placeHolder, fontSize: moderateScale(12) }}>(Optional)</Text>
                                 </Text>
+
+
+
+                                <TextInput
+                                    style={[styles.dropdownContainer, { color: 'white', flexDirection: 'row', alignItems: 'flex-start', paddingVertical: moderateVerticalScale(15) }]}
+                                    multiline
+                                    placeholder="Description"
+                                    placeholderTextColor="#ccc"
+                                    value={transaction?.description}
+                                    onChangeText={(value) => setTransaction({ ...transaction, description: value })}
+                                />
                             </View>
-
-
-                            <TextInput
-                                style={[styles.dropdownContainer, { color: 'white', flexDirection: 'row', alignItems: 'flex-start', paddingVertical: moderateVerticalScale(15) }]}
-                                multiline
-                                placeholder="Description"
-                                placeholderTextColor="#ccc"
-                                value={transaction?.description}
-                                onChangeText={(value) => setTransaction({ ...transaction, description: value })}
-                            />
-
 
                             {/* Upload File */}
                             <View style={{ gap: moderateVerticalScale(8) }}>
@@ -441,7 +443,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: 'white',
-        fontSize: moderateScale(32),
+        fontSize: moderateScale(28),
         fontWeight: 'bold',
     },
     inputLabel: {
