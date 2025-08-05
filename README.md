@@ -60,6 +60,7 @@ The **Statistics** screen features a clean and responsive **bar chart** using [`
 - Easy to extend with other chart types (line, pie, etc.)
 
 ---
+<<<<<<< HEAD
 
 ## 🛠️ Tech Stack
 
@@ -167,3 +168,111 @@ This project is licensed under the MIT License.
 * [TypeScript](https://www.typescriptlang.org/)
 
 ```
+=======
+
+## 🛠️ Tech Stack
+
+- **React Native (Expo)**
+- **TypeScript**
+- **Firebase (Auth + Firestore)**
+- **Cloudinary** – Image uploads
+- **Axios** – For HTTP requests
+- **React Navigation**
+- **React Native Gifted Charts** – For bar chart visualizations
+- **TypeScript Custom Types** – Centralized in `types.ts`
+- **Modular Architecture** with reusable hooks, services, and components
+
+---
+
+## 🔧 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/italhazahid/expense-tracker.git
+cd expense-tracker
+````
+
+### 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Configure Firebase
+
+Update the Firebase config in `config/firebase.ts` using your project credentials.
+
+### 4. Configure Cloudinary
+
+Create a `index.ts` file in constants and update using your project credentials:
+
+```env
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_UPLOAD_PRESET=your-upload-preset
+```
+
+
+### 5. Run the app
+
+```bash
+npx expo start
+```
+
+---
+
+## ☁️ Cloudinary Upload Service
+
+The file `services/imgServices.tsx` handles image uploads and fallback logic:
+
+### Upload Function
+
+```ts
+uploadFileToCloudinary(file, 'wallets');
+```
+
+### Helpers
+
+```ts
+getProfileImage(file); // fallback to default avatar
+getWalletImage(file);  // fallback to null
+```
+
+---
+
+## 📷 Screenshots
+
+*will be added later*
+
+* 📊 Statistics screen with bar chart
+* 🧾 Transaction history
+* 👤 Profile screen
+* 💼 Wallet management
+
+
+---
+
+## ✨ Contributing
+
+Pull requests are welcome! For major changes, open an issue first to discuss what you'd like to modify.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🙌 Acknowledgements
+
+* [Expo](https://expo.dev/)
+* [Firebase](https://firebase.google.com/)
+* [Cloudinary](https://cloudinary.com/)
+* [React Native Gifted Charts](https://github.com/SimformSolutionsPvtLtd/react-native-gifted-charts)
+* [React Native](https://reactnative.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+
+>>>>>>> ccf6dc4a25cdb81251a70ec61400b7a4da46cde4
